@@ -1,0 +1,28 @@
+Dataset shape: 8000 rows x 28 columns
+Duplicate rows: 0
+Total missing cells: 2178
+Target counts: {0: 6370, 1: 1630}
+Target proportions: {0: 0.7962, 1: 0.2037}
+Missing values by column:
+attendance_percentage    206
+coding_score             141
+aptitude_score           119
+communication_score      149
+technical_score          131
+internship_months        238
+linkedin_score           315
+resume_score             189
+soft_skills_score        154
+training_hours           241
+mock_interview_score     295
+Numeric correlations with target:
+cgpa                     0.023251
+aptitude_score           0.020402
+mock_interview_score     0.018506
+technical_score          0.018101
+internships_count        0.015646
+internship_months        0.015088
+resume_score            -0.014082
+github_projects          0.013924
+coding_platform_score    0.013243
+projects_count           0.012537

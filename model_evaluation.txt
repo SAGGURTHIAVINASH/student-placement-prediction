@@ -1,0 +1,27 @@
+STUDENT PLACEMENT PREDICTION - MODEL EVALUATION
+Dataset: Data/student_placement_train.csv
+Rows: 8000 | Columns: 28
+Training rows: 6400 | Test rows: 1600
+Target distribution: {0: 6370, 1: 1630}
+Numerical features: 24 | Categorical features: 2
+Preprocessing: median imputation + standard scaling for numeric; most-frequent imputation + one-hot encoding for categorical.
+Leakage control: preprocessing is inside each Pipeline and is fitted separately within CV folds / training split.
+student_id is excluded; placed is used only as target.
+Selected model by highest mean 5-fold CV ROC-AUC (tie-break F1): Logistic Regression
+
+5-FOLD STRATIFIED CV RESULTS (TRAINING PARTITION ONLY)
+              Model  Accuracy  Precision  Recall  F1-score  ROC-AUC  Log Loss
+    DummyClassifier    0.7963     0.0000  0.0000    0.0000   0.5000    7.3439
+Logistic Regression    0.5116     0.2026  0.4762    0.2842   0.5001    0.6956
+      Decision Tree    0.4778     0.2034  0.5352    0.2879   0.4906    1.1582
+      Random Forest    0.7825     0.1552  0.0169    0.0302   0.4910    0.6025
+
+HELD-OUT TEST RESULTS
+              Model  Accuracy  Precision  Recall  F1-score  ROC-AUC  Log Loss
+    DummyClassifier    0.7963     0.0000  0.0000    0.0000   0.5000    7.3439
+Logistic Regression    0.5219     0.2014  0.4540    0.2790   0.4898    0.6923
+      Decision Tree    0.4269     0.2048  0.6288    0.3090   0.5077    1.0660
+      Random Forest    0.7894     0.3226  0.0307    0.0560   0.5250    0.6071
+
+Interpretation: Accuracy must be read alongside recall, F1, ROC-AUC and Log Loss because the target classes are imbalanced.
+A ROC-AUC near 0.50 indicates performance close to random ranking. Results describe this dataset only and do not establish real-world placement causation.
