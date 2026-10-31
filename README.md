@@ -1,63 +1,200 @@
-# Student Placement Prediction — INT234 Predictive Analytics
+# Student Placement Prediction Using Machine Learning
 
-## Project objective
-Apply a standard predictive-analytics workflow to the supplied Kaggle student-placement CSV and compare classification models for `placed` (0 = Not Placed, 1 = Placed).
+**Course:** INT234 – Predictive Analytics  
+**Project Type:** Machine Learning Classification
 
-This project follows the workflow described in the LinkedIn reference project: preprocessing and cleaning, EDA, feature preparation, multiple classification models, and evaluation using Accuracy, Precision, Recall, F1-score, Log Loss and ROC-AUC, together with visualization, correlation analysis and confusion matrices.
+## Project Overview
 
-## Dataset
-- File: `Data/student_placement_train.csv`
-- Shape: 8,000 rows × 28 columns
-- Predictors: 26, plus `student_id` identifier
-- Target: `placed`
-- Class counts: 6,370 not placed; 1,630 placed
-- Missing cells: 2,178 across 11 columns
-- Duplicate rows: 0
+This project focuses on predicting student placement outcomes using machine learning classification algorithms. It follows a predictive analytics workflow involving dataset inspection, data cleaning, exploratory data analysis, preprocessing, model training, and performance evaluation.
 
-The original Kaggle CSV is preserved. Missing predictor values are imputed inside the modeling pipeline; the source CSV is not overwritten. The dataset should not be described as official LPU placement records unless provenance is independently verified.
+The objective is to compare different classification algorithms and understand how effectively they identify placed and not-placed students.
 
-## Workflow
-1. Dataset loading and validation (`src/inspect_dataset.py`)
-2. Exploratory data analysis (`src/eda.py`)
-3. Preprocessing: median imputation and scaling for numerical features; most-frequent imputation and one-hot encoding for categorical features
-4. Feature preparation: remove `student_id` from predictors; separate `placed` as target
-5. Stratified 80:20 train/test split with random_state=42
-6. Five-fold stratified cross-validation on training data
-7. Compare DummyClassifier, Logistic Regression, Decision Tree and Random Forest
-8. Evaluate held-out test data with Accuracy, Precision, Recall, F1-score, ROC-AUC and Log Loss
-9. Save confusion matrices, ROC plot, metrics, evaluation report and fitted pipeline
+## Objectives
 
-## Run on Windows
-Open PowerShell in the extracted project folder:
+- Analyze student placement data.
+- Perform data cleaning and preprocessing.
+- Explore relationships between student features and placement outcomes.
+- Apply multiple machine learning classification algorithms.
+- Compare models using evaluation metrics.
+- Identify the limitations of placement prediction.
 
-```powershell
+## Dataset Information
+
+| Description | Details |
+|---|---|
+| Dataset | Student Placement Dataset |
+| Records | 8,000 |
+| Columns | 28 |
+| Target variable | `placed` |
+| Not Placed | 6,370 |
+| Placed | 1,630 |
+| Missing cells | 2,178 |
+| Duplicate rows | 0 |
+
+**Target variable:**
+- `0` – Not Placed
+- `1` – Placed
+
+The dataset contains an imbalanced target distribution. The dataset is used for academic analysis and should not be interpreted as official LPU placement records.
+
+## Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Jupyter Notebook
+- Joblib
+
+## Project Workflow
+
+1. Dataset loading and inspection.
+2. Data cleaning and missing-value analysis.
+3. Exploratory Data Analysis (EDA).
+4. Feature preparation and preprocessing.
+5. Train-test splitting.
+6. Model training.
+7. Cross-validation.
+8. Model evaluation and comparison.
+9. Visualization of results.
+10. Saving the trained model.
+
+## Machine Learning Algorithms
+
+The following classification algorithms are implemented:
+
+- Dummy Classifier
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+
+## Data Preprocessing
+
+- Median imputation for numerical features.
+- Most-frequent imputation for categorical features.
+- StandardScaler for numerical features.
+- OneHotEncoder for categorical features.
+- ColumnTransformer and Scikit-learn Pipeline.
+- Stratified 80:20 train-test split.
+- Five-fold Stratified Cross-Validation.
+
+The `student_id` column is excluded from model training.
+
+## Exploratory Data Analysis
+
+The following visualizations are included:
+
+- Placement Distribution
+- Missing Values Count
+- CGPA Distribution by Placement
+- Placement Rate by Preferred Domain
+- Placement Rate by Internships
+- Correlation Heatmap
+
+## Model Evaluation
+
+Models are evaluated using:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+- Log Loss
+- Confusion Matrix
+- ROC Curve
+
+The project includes cross-validation results and held-out test-set evaluation.
+
+### Key Findings
+
+The dataset has an imbalanced target distribution, with 79.62% not placed and 20.38% placed.
+
+The Dummy Classifier achieves high accuracy by predicting the majority class, but it fails to identify placed students. The Decision Tree achieves the highest recall on the held-out test set among the evaluated models. Overall, the results indicate limited predictive performance, highlighting the need for further feature engineering, data analysis, and model improvement.
+
+## Project Files
+
+| File | Description |
+|---|---|
+| `Student_Placement_Prediction.ipynb` | Complete project notebook |
+| `inspect_dataset.py` | Dataset inspection |
+| `eda.py` | Exploratory data analysis |
+| `train_model.py` | Model training and comparison |
+| `requirements.txt` | Required Python libraries |
+| `student_placement_train.csv` | Dataset |
+| `placement_model.joblib` | Saved trained model |
+| `model_comparison.csv` | Model comparison results |
+| `model_cv_comparison.csv` | Cross-validation results |
+| `model_evaluation.txt` | Evaluation report |
+| `eda_summary.txt` | EDA summary |
+| `project_methodology.txt` | Project methodology |
+
+## Installation and Execution
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/SAGGURTHIAVINASH/student-placement-prediction.git
+cd student-placement-prediction
+```
+
+### 2. Create a virtual environment
+
+```bash
 py -m venv .venv
+```
+
+### 3. Activate the environment
+
+```bash
 .venv\Scripts\activate
+```
+
+### 4. Install dependencies
+
+```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-python src\inspect_dataset.py
-python src\eda.py
-python src\train_model.py
+```
+
+### 5. Run the project
+
+```bash
+python inspect_dataset.py
+python eda.py
+python train_model.py
+```
+
+You can also open the Jupyter Notebook:
+
+```bash
 jupyter notebook
 ```
 
-Open `notebooks/Student_Placement_Prediction.ipynb` and run all cells from top to bottom.
+Open `Student_Placement_Prediction.ipynb` and run the cells.
 
-## Main files
-- `Data/`: original Kaggle dataset
-- `src/inspect_dataset.py`: dataset checks
-- `src/eda.py`: EDA plots and summary
-- `src/train_model.py`: preprocessing, CV, model comparison and saved model
-- `notebooks/Student_Placement_Prediction.ipynb`: academic end-to-end notebook
-- `reports/`: metric tables, text reports and figures
-- `models/placement_model.joblib`: selected fitted preprocessing + classifier pipeline
+## Limitations and Future Improvements
 
-## Reproducibility and limitations
-- `student_id` is excluded from predictors.
-- `placed` is never included in the feature matrix.
-- Imputation, scaling and encoding are inside Scikit-learn pipelines, so they are fitted on training folds only during CV and on training data for final fit.
-- The test partition is not used for model selection.
-- The selected model is chosen using mean 5-fold CV ROC-AUC (F1-score as tie-break).
-- The target is imbalanced. Accuracy by itself can be misleading.
-- A ROC-AUC near 0.50 indicates weak ranking performance. Do not claim strong placement prediction or causal relationships from these results.
-- Company recommendation / real-world placement guarantees are outside this reference-aligned academic classification workflow.
+- Address class imbalance using appropriate techniques.
+- Explore additional relevant student features.
+- Perform hyperparameter tuning.
+- Improve recall and F1-score.
+- Evaluate models on additional datasets.
+- Develop a user-friendly prediction interface.
+
+The current results should not be treated as guaranteed real-world placement predictions or evidence of causal relationships.
+
+## Author
+
+**Saggurthi Avinash Matthew**  
+B.Tech – Computer Science and Engineering  
+Lovely Professional University  
+Course: INT234 – Predictive Analytics
+
+GitHub: [SAGGURTHIAVINASH](https://github.com/SAGGURTHIAVINASH)
+
+---
+
+*Academic Machine Learning Project – 2026*
